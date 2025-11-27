@@ -20,7 +20,7 @@ const run = async () => {
 
   // Subscribe to both topics
   await consumer.subscribe({
-    topics: ["test-schema-car-protobuf", "test-schema-car-avro"],
+    topics: ["commontopic", "commoninputtopic"],
     fromBeginning: true,
   });
 
