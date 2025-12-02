@@ -18,13 +18,20 @@ const consumer = kafka.consumer({
 const run = async () => {
   await consumer.connect();
 // This single line connects publisher to consumer through Kafka
-await consumer.subscribe({ topics: process.env.KAFKA_TOPICS.split(","), fromBeginning: true });
+// await consumer.subscribe({ topics: process.env.KAFKA_TOPICS.split(","), fromBeginning: true });
 
   // // Subscribe to both topics
   // await consumer.subscribe({
   //   topics: ["commontopic", "commoninputtopic"],
   //   fromBeginning: true,
   // });
+
+  const topics = process.env.KAFKA_TOPICS
+  .split(",")
+  .map(t => t.trim());
+
+ await consumer.subscribe({ topics, fromBeginning: true });
+
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
